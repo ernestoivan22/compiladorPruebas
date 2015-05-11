@@ -34,7 +34,7 @@ _main:
    POP {R11}
    PUSH {LR}
    PUSH {R11}
-   MOV R4, #2
+   MOV R4, #10
    PUSH {R4}
    MOV R4, #5
    PUSH {R4}
@@ -42,6 +42,7 @@ _main:
    PUSH {R11}
    bl _sumaintint
    POP {R4}
+   MOV R0,R4
    POP {R11}
    STR R4, [R11, #4]
    LDR R4, [R11, #4]
