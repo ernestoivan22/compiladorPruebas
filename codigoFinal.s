@@ -108,7 +108,6 @@ _main:
    ADD R11, R11, #28
    PUSH {R11}
    bl _printIntint
-   POP {R4}
    POP {R11}
    POP {PC}
 _ERRORINDICE:
