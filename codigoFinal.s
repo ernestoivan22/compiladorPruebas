@@ -112,11 +112,6 @@ _main:
    POP {PC}
 _ERRORINDICE:
    b _ERRORINDICE
-.section .data
-.align 2
-data:
-temp:
-   .word
 _printIntint:
    POP {R11}
    POP {R1}
@@ -124,5 +119,11 @@ _printIntint:
    LDR R0,=_formatoInt
    BL printf
    POP {PC}
+.section .data
+.align 2
+data:
+temp:
+   .word
+
 _formatoInt: 
    .asciz "%d\n"
