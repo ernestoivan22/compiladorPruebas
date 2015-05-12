@@ -119,11 +119,11 @@ data:
 temp:
    .word
 _printInt:
-   pop{R11}
-   pop{R1}
-   push{lr}
+   POP {R11}
+   POP {R1}
+   PUSH {lr}
    LDR R0,=_formatoInt
    BL printf
-   POP{PC}
+   POP {PC}
 _formatoInt: 
    .asciz "%d\n"
