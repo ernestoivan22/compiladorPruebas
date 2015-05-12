@@ -118,7 +118,7 @@ _ERRORINDICE:
 data:
 temp:
    .word
-_printInt:
+_printIntint:
    POP {R11}
    POP {R1}
    PUSH {lr}
