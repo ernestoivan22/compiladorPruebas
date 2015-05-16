@@ -10,6 +10,8 @@ main:
 _mostrarLista:
    POP {R11}
    PUSH {LR}
+   MOV R4, #0
+   STR R4, [R11, #0]
 _WHILE0:
    LDR R4, [R11, #0]
    PUSH {R4}
@@ -19,7 +21,7 @@ _WHILE0:
    MOVLT R6, #1
    MOVGE R6, #0
    CMP R6, #1
-   BNE _WHILE_END0
+   BNE _WHILEEND0
    PUSH {R11}
    LDR R4, [R11, #0]
    CMP R4, #10
@@ -53,7 +55,7 @@ _main:
 _WHILE1:
    LDR R4, [R11, #8]
    CMP R4, #1
-   BNE _WHILE_END1
+   BNE _WHILEEND1
    MOV R4, #5
    STR R4, [R11, #0]
    MOV R4, #120
