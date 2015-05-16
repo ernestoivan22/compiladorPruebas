@@ -123,14 +123,14 @@ _retornoResiduo:
    b _retornoResiduo
 _finSubrutinaResiduo:
    POP {R1}
-   PUSH {R2}
+   PUSH {R0}
    MOV PC,R1
 .section .data
 .align 2
 data:
-   SPACE 4
+   .SPACE 4
 temp:
-   SPACE 1024
+   .SPACE 1024
 _printIntint:
    POP {R11}
    POP {R1}
