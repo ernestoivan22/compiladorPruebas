@@ -55,11 +55,10 @@ _main:
    bl _printIntint
    POP {R11}
    POP {PC}
-ERRORINDICE:
-_printIntint:
+_ERRORINDICE:
    LDR R0,=_mensajeErrorIndice
    BL printf
-   pop(PC)
+   POP {PC}
 _subrutinaDivision:
    POP {R0}
    POP {R1}
