@@ -42,6 +42,13 @@ _operacionint:
    PUSH {R11}
    bl _printCaracterchar
    POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
 _END0:
    LDR R4, [R11, #0]
    PUSH {R4}
@@ -68,6 +75,13 @@ _END0:
    POP {R11}
    PUSH {R11}
    MOV R4, #'S'
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
    PUSH {R4}
    ADD R11, R11, #4
    PUSH {R11}
@@ -104,6 +118,13 @@ _END1:
    PUSH {R11}
    bl _printCaracterchar
    POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
 _END2:
    LDR R4, [R11, #0]
    PUSH {R4}
@@ -130,6 +151,13 @@ _END2:
    POP {R11}
    PUSH {R11}
    MOV R4, #'V'
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
    PUSH {R4}
    ADD R11, R11, #4
    PUSH {R11}
@@ -166,6 +194,13 @@ _END3:
    PUSH {R11}
    bl _printCaracterchar
    POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
 _END4:
    LDR R4, [R11, #0]
    PUSH {R4}
@@ -192,6 +227,13 @@ _END4:
    POP {R11}
    PUSH {R11}
    MOV R4, #'G'
+   PUSH {R4}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _printCaracterchar
+   POP {R11}
+   PUSH {R11}
+   MOV R4, #' '
    PUSH {R4}
    ADD R11, R11, #4
    PUSH {R11}
@@ -423,6 +465,6 @@ _printCaracterchar:
 _formatoInt: 
    .asciz "%d\n"
 _formatoChar: 
-   .asciz "%c\n"
+   .asciz "%c"
 _mensajeErrorIndice: 
    .asciz "index out of bounds\n"
