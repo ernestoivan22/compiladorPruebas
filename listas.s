@@ -56,20 +56,10 @@ _main:
    POP {R11}
    POP {PC}
 ERRORINDICE:
-   POP {R0}
-   POP {R1}
-   MOV R2,#0
-   PUSH {LR}
-_retornoDivision:
-   CMP R0,R1
-   BLT _finSubrutinaDivision
-   SUB R0, R0, R1
-   ADD R2, R2, #1
-   b _retornoDivision
-_finSubrutinaDivision:
-   POP {R1}
-   PUSH {R2}
-   MOV PC,R1
+_printIntint:
+   LDR R0,=_mensajeErrorIndice
+   BL printf
+   pop(PC)
 _subrutinaDivision:
    POP {R0}
    POP {R1}
@@ -107,9 +97,12 @@ data:
 temp:
    .SPACE 1024
 _printIntint:
-   LDR R0,=_mensajeErrorIndice
+   POP {R11}
+   POP {R1}
+   PUSH {lr}
+   LDR R0,=_formatoInt
    BL printf
-   pop(PC)
+   POP {PC}
 _formatoInt: 
    .asciz "%d\n"
 _mensajeErrorIndice: 
