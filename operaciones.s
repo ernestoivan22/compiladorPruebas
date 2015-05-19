@@ -358,7 +358,8 @@ _WHILEEND0:
    STR R4, [R10, #0]
    PUSH {R11}
    LDR R4, [R10, #0]
-   MUL R5, R4, #-1
+   MOV R5, #-1
+   MUL R5, R4, R5
    PUSH {R5}
    ADD R11, R11, #4
    PUSH {R11}
