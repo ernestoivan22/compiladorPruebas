@@ -105,4 +105,4 @@ _printIntint:
 _formatoInt: 
    .asciz "%d\n"
 _mensajeErrorIndice: 
-   .asciz "index out of bounds"
+   .asciz "index out of bounds\n"
