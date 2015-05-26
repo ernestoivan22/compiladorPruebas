@@ -7,80 +7,72 @@ main:
    bl _main
    POP {R11}
    BX R11
-_mostrarLista:
+_factorialint:
    POP {R11}
+   POP {R12}
+   STR R12, [R11, #0]
    PUSH {LR}
-   MOV R4, #0
-   STR R4, [R11, #0]
-_WHILE0:
    LDR R4, [R11, #0]
    PUSH {R4}
-   MOV R4, #10
+   MOV R4, #0
    POP {R5}
    CMP R5, R4
-   MOVLT R6, #1
-   MOVGE R6, #0
+   MOVEQ R6, #1
+   MOVNE R6, #0
    CMP R6, #1
-   BNE _WHILEEND0
-   PUSH {R11}
+   BNE _ELSE0
+   MOV R4, #1
+   POP {R5}
+   PUSH {R4}
+   MOV PC, R5
+   b _END0
+_ELSE0:
    LDR R4, [R11, #0]
-   CMP R4, #10
-   MOVLT R5, #1
-   MOVGE R5, #0
-   CMP R5, #1
-   BNE _ERRORINDICE
-   MOV R5, #4
-   MUL R5, R5, R4
-   ADD R4, R5, #0
-   LDR R5, [R10, R4]
-   PUSH {R5}
-   ADD R11, R11, #4
+   PUSH {R4}
    PUSH {R11}
-   bl _printIntint
-   POP {R11}
    LDR R4, [R11, #0]
    PUSH {R4}
    MOV R4, #1
    POP {R5}
-   ADD R6, R5, R4
-   STR R6, [R11, #0]
-   b _WHILE0
-_WHILEEND0:
-   POP {PC}
+   SUB R6, R5, R4
+   PUSH {R6}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _factorialint
+   POP {R4}
+   POP {R11}
+   POP {R5}
+   MUL R6, R5, R4
+   POP {R4}
+   PUSH {R6}
+   MOV PC, R4
+_END0:
 _main:
    POP {R11}
    PUSH {LR}
-   MOV R4, #1
-   STR R4, [R11, #8]
-_WHILE1:
-   LDR R4, [R11, #8]
-   CMP R4, #1
-   BNE _WHILEEND1
-   MOV R4, #5
-   STR R4, [R11, #0]
-   MOV R4, #120
-   STR R4, [R11, #4]
-   LDR R4, [R11, #4]
-   LDR R5, [R11, #0]
-   CMP R5, #10
-   MOVLT R6, #1
-   MOVGE R6, #0
-   CMP R6, #1
-   BNE _ERRORINDICE
-   MOV R6, #4
-   MUL R6, R6, R5
-   ADD R5, R6, #0
-   STR R4, [R10, R5]
+   MOV R4, #12
+   STR R4, [R10, #0]
    PUSH {R11}
-   ADD R11, R11, #12
+   LDR R4, [R10, #0]
+   PUSH {R4}
+   ADD R11, R11, #0
    PUSH {R11}
-   bl _mostrarLista
+   bl _factorialint
+   POP {R4}
    POP {R11}
-   b _WHILE1
-_WHILEEND1:
+   STR R4, [R10, #0]
+   PUSH {R11}
+   LDR R4, [R10, #0]
+   PUSH {R4}
+   ADD R11, R11, #0
+   PUSH {R11}
+   bl _printEnteroint
+   POP {R11}
    POP {PC}
 _ERRORINDICE:
-   b _ERRORINDICE
+   LDR R0,=_mensajeErrorIndice
+   BL printf
+   POP {PC}
 _subrutinaDivision:
    POP {R0}
    POP {R1}
@@ -114,15 +106,26 @@ _finSubrutinaResiduo:
 .section .data
 .align 2
 data:
-   .SPACE 40
+   .SPACE 4
 temp:
    .SPACE 1024
-_printIntint:
+_printEnteroint:
    POP {R11}
    POP {R1}
    PUSH {lr}
    LDR R0,=_formatoInt
    BL printf
    POP {PC}
+_printCaracterchar:
+   POP {R11}
+   POP {R1}
+   PUSH {lr}
+   LDR R0,=_formatoChar
+   BL printf
+   POP {PC}
 _formatoInt: 
    .asciz "%d\n"
+_formatoChar: 
+   .asciz "%c"
+_mensajeErrorIndice: 
+   .asciz "index out of bounds\n"

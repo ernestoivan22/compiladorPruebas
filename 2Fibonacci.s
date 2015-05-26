@@ -7,52 +7,77 @@ main:
    bl _main
    POP {R11}
    BX R11
-_sumaintint:
+_fibint:
    POP {R11}
    POP {R12}
    STR R12, [R11, #0]
-   POP {R12}
-   STR R12, [R11, #4]
    PUSH {LR}
    LDR R4, [R11, #0]
    PUSH {R4}
-   LDR R4, [R11, #4]
+   MOV R4, #2
+   POP {R5}
+   CMP R5, R4
+   MOVLT R6, #1
+   MOVGE R6, #0
+   CMP R6, #1
+   BNE _ELSE0
+   LDR R4, [R11, #0]
+   POP {R5}
+   PUSH {R4}
+   MOV PC, R5
+   b _END0
+_ELSE0:
+   PUSH {R11}
+   LDR R4, [R11, #0]
+   PUSH {R4}
+   MOV R4, #1
+   POP {R5}
+   SUB R6, R5, R4
+   PUSH {R6}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _fibint
+   POP {R4}
+   POP {R11}
+   PUSH {R4}
+   PUSH {R11}
+   LDR R4, [R11, #0]
+   PUSH {R4}
+   MOV R4, #2
+   POP {R5}
+   SUB R6, R5, R4
+   PUSH {R6}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _fibint
+   POP {R4}
+   POP {R11}
    POP {R5}
    ADD R6, R5, R4
    POP {R4}
    PUSH {R6}
    MOV PC, R4
+_END0:
 _main:
    POP {R11}
    PUSH {LR}
+   MOV R4, #40
+   STR R4, [R10, #0]
    PUSH {R11}
-   MOV R4, #7
+   LDR R4, [R10, #0]
    PUSH {R4}
-   MOV R4, #3
-   PUSH {R4}
-   ADD R11, R11, #4
+   ADD R11, R11, #0
    PUSH {R11}
-   bl _sumaintint
+   bl _fibint
    POP {R4}
    POP {R11}
-   STR R4, [R11, #0]
-   LDR R4, [R11, #0]
-   MOV R5, #5
-   CMP R5, #5
-   MOVLT R6, #1
-   MOVGE R6, #0
-   CMP R6, #1
-   BNE _ERRORINDICE
-   MOV R6, #4
-   MUL R6, R6, R5
-   ADD R5, R6, #0
-   STR R4, [R10, R5]
+   STR R4, [R10, #0]
    PUSH {R11}
-   LDR R4, [R11, #0]
+   LDR R4, [R10, #0]
    PUSH {R4}
-   ADD R11, R11, #4
+   ADD R11, R11, #0
    PUSH {R11}
-   bl _printIntint
+   bl _printEnteroint
    POP {R11}
    POP {PC}
 _ERRORINDICE:
@@ -92,17 +117,26 @@ _finSubrutinaResiduo:
 .section .data
 .align 2
 data:
-   .SPACE 20
+   .SPACE 4
 temp:
    .SPACE 1024
-_printIntint:
+_printEnteroint:
    POP {R11}
    POP {R1}
    PUSH {lr}
    LDR R0,=_formatoInt
    BL printf
    POP {PC}
+_printCaracterchar:
+   POP {R11}
+   POP {R1}
+   PUSH {lr}
+   LDR R0,=_formatoChar
+   BL printf
+   POP {PC}
 _formatoInt: 
    .asciz "%d\n"
+_formatoChar: 
+   .asciz "%c"
 _mensajeErrorIndice: 
    .asciz "index out of bounds\n"
