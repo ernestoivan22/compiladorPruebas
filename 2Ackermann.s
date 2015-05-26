@@ -49,7 +49,7 @@ _ELSE0:
    MOVEQ R6, #1
    MOVNE R6, #0
    POP {R4}
-   ANDR5, R4, R6
+   AND R5, R4, R6
    CMP R5, #1
    BNE _ELSE1
    PUSH {R11}
