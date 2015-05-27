@@ -62,11 +62,11 @@ _main:
    POP {R11}
    PUSH {LR}
    MOV R4, #1
-   STR R4, [R10, #0]
+   STR R4, [R10, #4]
 _WHILE0:
-   LDR R4, [R10, #0]
+   LDR R4, [R10, #4]
    PUSH {R4}
-   MOV R4, #10
+   MOV R4, #40
    POP {R5}
    CMP R5, R4
    MOVLT R6, #1
@@ -74,7 +74,7 @@ _WHILE0:
    CMP R6, #1
    BNE _WHILEEND0
    PUSH {R11}
-   LDR R4, [R10, #0]
+   LDR R4, [R10, #4]
    PUSH {R4}
    ADD R11, R11, #0
    PUSH {R11}
@@ -89,12 +89,12 @@ _WHILE0:
    PUSH {R11}
    bl _printEnteroint
    POP {R11}
-   LDR R4, [R10, #0]
+   LDR R4, [R10, #4]
    PUSH {R4}
    MOV R4, #1
    POP {R5}
    ADD R6, R5, R4
-   STR R6, [R10, #0]
+   STR R6, [R10, #4]
    b _WHILE0
 _WHILEEND0:
    POP {PC}
