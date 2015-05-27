@@ -7,171 +7,96 @@ main:
    bl _main
    POP {R11}
    BX R11
-_ackintint:
+_fibint:
    POP {R11}
    POP {R12}
    STR R12, [R11, #0]
-   POP {R12}
-   STR R12, [R11, #4]
    PUSH {LR}
    LDR R4, [R11, #0]
    PUSH {R4}
-   MOV R4, #0
+   MOV R4, #2
    POP {R5}
    CMP R5, R4
-   MOVEQ R6, #1
-   MOVNE R6, #0
+   MOVLT R6, #1
+   MOVGE R6, #0
    CMP R6, #1
    BNE _ELSE0
-   LDR R4, [R11, #4]
+   LDR R4, [R11, #0]
+   POP {R5}
+   PUSH {R4}
+   MOV PC, R5
+   b _END0
+_ELSE0:
+   PUSH {R11}
+   LDR R4, [R11, #0]
    PUSH {R4}
    MOV R4, #1
+   POP {R5}
+   SUB R6, R5, R4
+   PUSH {R6}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _fibint
+   POP {R4}
+   POP {R11}
+   PUSH {R4}
+   PUSH {R11}
+   LDR R4, [R11, #0]
+   PUSH {R4}
+   MOV R4, #2
+   POP {R5}
+   SUB R6, R5, R4
+   PUSH {R6}
+   ADD R11, R11, #4
+   PUSH {R11}
+   bl _fibint
+   POP {R4}
+   POP {R11}
    POP {R5}
    ADD R6, R5, R4
    POP {R4}
    PUSH {R6}
    MOV PC, R4
-   b _END0
-_ELSE0:
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   MOV R4, #0
-   POP {R5}
-   CMP R5, R4
-   MOVGT R6, #1
-   MOVLE R6, #0
-   PUSH {R6}
-   LDR R4, [R11, #4]
-   PUSH {R4}
-   MOV R4, #0
-   POP {R5}
-   CMP R5, R4
-   MOVEQ R6, #1
-   MOVNE R6, #0
-   POP {R4}
-   AND R5, R4, R6
-   CMP R5, #1
-   BNE _ELSE1
-   PUSH {R11}
-   MOV R4, #1
-   PUSH {R4}
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   MOV R4, #1
-   POP {R5}
-   SUB R6, R5, R4
-   PUSH {R6}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _ackintint
-   POP {R4}
-   POP {R11}
-   POP {R5}
-   PUSH {R4}
-   MOV PC, R5
-   b _END1
-_ELSE1:
-   PUSH {R11}
-   LDR R4, [R11, #4]
-   PUSH {R4}
-   MOV R4, #1
-   POP {R5}
-   SUB R6, R5, R4
-   PUSH {R6}
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _ackintint
-   POP {R4}
-   POP {R11}
-   STR R4, [R11, #8]
-   PUSH {R11}
-   LDR R4, [R11, #8]
-   PUSH {R4}
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   MOV R4, #1
-   POP {R5}
-   SUB R6, R5, R4
-   PUSH {R6}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _ackintint
-   POP {R4}
-   POP {R11}
-   POP {R5}
-   PUSH {R4}
-   MOV PC, R5
-_END1:
 _END0:
 _main:
    POP {R11}
    PUSH {LR}
-   PUSH {R11}
-   MOV R4, #'m'
+   MOV R4, #1
+   STR R4, [R10, #0]
+_WHILE0:
+   LDR R4, [R10, #0]
    PUSH {R4}
-   ADD R11, R11, #12
+   MOV R4, #10
+   POP {R5}
+   CMP R5, R4
+   MOVLT R6, #1
+   MOVGE R6, #0
+   CMP R6, #1
+   BNE _WHILEEND0
    PUSH {R11}
-   bl _printCaracterchar
-   POP {R11}
-   PUSH {R11}
-   MOV R4, #':'
+   LDR R4, [R10, #0]
    PUSH {R4}
-   ADD R11, R11, #12
+   ADD R11, R11, #0
    PUSH {R11}
-   bl _printCaracterchar
-   POP {R11}
-   MOV R4, #4
-   STR R4, [R11, #0]
-   PUSH {R11}
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _printEnteroint
-   POP {R11}
-   PUSH {R11}
-   MOV R4, #'n'
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _printCaracterchar
-   POP {R11}
-   PUSH {R11}
-   MOV R4, #':'
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _printCaracterchar
-   POP {R11}
-   PUSH {R11}
-   LDR R4, [R11, #4]
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _printEnteroint
-   POP {R11}
-   MOV R4, #0
-   STR R4, [R11, #4]
-   PUSH {R11}
-   LDR R4, [R11, #4]
-   PUSH {R4}
-   LDR R4, [R11, #0]
-   PUSH {R4}
-   ADD R11, R11, #12
-   PUSH {R11}
-   bl _ackintint
+   bl _fibint
    POP {R4}
    POP {R11}
-   STR R4, [R11, #8]
+   STR R4, [R10, #0]
    PUSH {R11}
-   LDR R4, [R11, #8]
+   LDR R4, [R10, #0]
    PUSH {R4}
-   ADD R11, R11, #12
+   ADD R11, R11, #0
    PUSH {R11}
    bl _printEnteroint
    POP {R11}
+   LDR R4, [R10, #0]
+   PUSH {R4}
+   MOV R4, #1
+   POP {R5}
+   ADD R6, R5, R4
+   STR R6, [R10, #0]
+   b _WHILE0
+_WHILEEND0:
    POP {PC}
 _ERRORINDICE:
    LDR R0,=_mensajeErrorIndice
@@ -210,6 +135,7 @@ _finSubrutinaResiduo:
 .section .data
 .align 2
 data:
+   .SPACE 4
 temp:
    .SPACE 1024
 _printEnteroint:
